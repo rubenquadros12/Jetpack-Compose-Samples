@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Composition</string>
+    <string name="all_following">Following</string>
+    <string name="all_live">LIVE</string>
+    <string name="live_now_carousel">Live Now Carousel</string>
+    <string name="live_streams_number">3 live streams</string>
 </resources>
