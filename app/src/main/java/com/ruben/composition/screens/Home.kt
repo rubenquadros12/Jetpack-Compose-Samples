@@ -20,7 +20,8 @@ import com.ruben.composition.components.AppBar
  **/
 @Composable
 fun Home(
-    openLiveNowCarousel: () -> Unit
+    openLiveNowCarousel: () -> Unit,
+    openBottomSheet: () -> Unit
 ) {
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.app_name)) },
@@ -34,6 +35,14 @@ fun Home(
                 ) {
                     Text(text = stringResource(id = R.string.live_now_carousel))
                 }
+                Button(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.CenterHorizontally),
+                    onClick = openBottomSheet
+                ) {
+                    Text(text = stringResource(id = R.string.bottom_sheet))
+                }
             }
         }
     )
@@ -42,7 +51,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home {
-
-    }
+    Home({}, {})
 }

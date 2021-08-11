@@ -1,11 +1,14 @@
 package com.ruben.composition.data
 
+import com.ruben.composition.model.LiveStreamSettingsEntity
 import com.ruben.composition.model.LiveStreamerEntity
+import com.ruben.composition.model.SettingType
+import com.ruben.composition.model.SettingValue
 
 /**
  * Created by Ruben Quadros on 10/08/21
  **/
-object MockLiveStreamersData {
+object MockData {
 
     fun getMockLiveStreamers(): List<LiveStreamerEntity> {
         val liveStreamers = arrayListOf<LiveStreamerEntity>()
@@ -20,6 +23,15 @@ object MockLiveStreamersData {
         liveStreamers.add(LiveStreamerEntity("@yash", "https://yash.jpg"))
         liveStreamers.add(LiveStreamerEntity("@sohil", "https://sohil.jpg"))
         return liveStreamers
+    }
+
+    fun getLiveStreamSettings(): List<LiveStreamSettingsEntity> {
+        val settings = arrayListOf<LiveStreamSettingsEntity>()
+        settings.add(LiveStreamSettingsEntity("Live Requests", SettingValue.ON, SettingType.SWITCH))
+        settings.add(LiveStreamSettingsEntity("Comments", SettingValue.ON, SettingType.SWITCH))
+        settings.add(LiveStreamSettingsEntity("Comments Filter", SettingValue.ON, SettingType.NORMAL))
+        settings.add(LiveStreamSettingsEntity("Paid Promotion", SettingValue.ON, SettingType.NORMAL))
+        return settings
     }
 
 }

@@ -4,4 +4,7 @@
     <string name="all_live">LIVE</string>
     <string name="live_now_carousel">Live Now Carousel</string>
     <string name="live_streams_number">3 live streams</string>
+    <string name="bottom_sheet">Bottom Sheet Behaviour</string>
+    <string name="bottom_sheet_title">Awesome Bottom Sheet</string>
+    <string name="show_bottom_sheet">Show me the bottom sheet!</string>
 </resources>

@@ -8,12 +8,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -42,7 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.ruben.composition.R
 import com.ruben.composition.components.BackButtonAppBar
-import com.ruben.composition.data.MockLiveStreamersData
+import com.ruben.composition.data.MockData
 import com.ruben.composition.model.LiveStreamerEntity
 import com.ruben.composition.ui.theme.Pink
 import com.ruben.composition.ui.theme.Teal200
@@ -110,7 +107,7 @@ fun LiveNowCarousel(navigateBack: () -> Unit) {
 @Composable
 fun ShowLiveStreamers() {
     LazyRow(modifier = Modifier.background(Color.Black)) {
-        items(MockLiveStreamersData.getMockLiveStreamers()) { liveStreamerEntity ->
+        items(MockData.getMockLiveStreamers()) { liveStreamerEntity ->
             LiveStreamer(liveStreamerEntity)
         }
     }
