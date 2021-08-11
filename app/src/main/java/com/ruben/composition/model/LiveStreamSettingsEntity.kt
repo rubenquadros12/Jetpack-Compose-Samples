@@ -7,4 +7,6 @@ data class LiveStreamSettingsEntity(
     val name: String,
     val value: SettingValue,
     val type: SettingType
-)
+) {
+    constructor(): this ("", SettingValue.DEFAULT, SettingType.NORMAL)
+}

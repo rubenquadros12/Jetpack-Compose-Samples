@@ -8,5 +8,5 @@ enum class SettingType {
 }
 
 enum class SettingValue {
-    ON, OFF
+    ON, OFF, DEFAULT
 }

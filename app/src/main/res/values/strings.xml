@@ -7,4 +7,9 @@
     <string name="bottom_sheet">Bottom Sheet Behaviour</string>
     <string name="bottom_sheet_title">Awesome Bottom Sheet</string>
     <string name="show_bottom_sheet">Show me the bottom sheet!</string>
+    <string name="setting_values">Setting Values</string>
+    <string name="live_requests_setting_value">Live Requests %s</string>
+    <string name="comments_setting_value">Live Requests %s</string>
+    <string name="comment_filter_setting_value">Live Requests %s</string>
+    <string name="paid_promo_setting_value">Live Requests %s</string>
 </resources>
