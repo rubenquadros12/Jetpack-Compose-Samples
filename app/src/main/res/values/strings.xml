@@ -12,4 +12,9 @@
     <string name="comments_setting_value">Live Requests %s</string>
     <string name="comment_filter_setting_value">Live Requests %s</string>
     <string name="paid_promo_setting_value">Live Requests %s</string>
+    <string name="paid_promo_title">Paid Promotions</string>
+    <string name="paid_promo_desc">You can indicate to your users if this live stream is partially/ fully sponsored or contains paid promotions. This will reflect in you live stream.</string>
+    <string name="comments_filter">Comments Filters</string>
+    <string name="comments_filter_desc1">We will automatically hide spam or offensive chats in your livestream.</string>
+    <string name="comments_filter_desc2">You can also create you own list of keyword to hide them from you live chat.</string>
 </resources>

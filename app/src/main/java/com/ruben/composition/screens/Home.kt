@@ -21,7 +21,8 @@ import com.ruben.composition.components.AppBar
 @Composable
 fun Home(
     openLiveNowCarousel: () -> Unit,
-    openBottomSheet: () -> Unit
+    openBottomSheet: () -> Unit,
+    openCommentsFilter: () -> Unit
 ) {
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.app_name)) },
@@ -43,6 +44,14 @@ fun Home(
                 ) {
                     Text(text = stringResource(id = R.string.bottom_sheet))
                 }
+                Button(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.CenterHorizontally),
+                    onClick = openCommentsFilter
+                ) {
+                    Text(text = stringResource(id = R.string.comments_filter))
+                }
             }
         }
     )
@@ -51,5 +60,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home({}, {})
+    Home({}, {}, {})
 }
