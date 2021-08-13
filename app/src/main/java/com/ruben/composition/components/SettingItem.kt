@@ -101,7 +101,6 @@ fun SettingItem(
                             //this is comments
                         }
                         2 -> {
-
                         }
                         3 -> {
                             //this is paid promo

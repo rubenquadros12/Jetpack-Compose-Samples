@@ -39,7 +39,7 @@ fun CompositionApp() {
         }
 
         composable(BottomSheet) {
-            BottomSheetScreen(actions.navigateUp, actions.openPaidPromo, sharedViewModel)
+            BottomSheetScreen(actions.navigateUp, actions.openPaidPromo, actions.openCommentsFilter, sharedViewModel)
         }
 
         composable(CommentsFilter) {

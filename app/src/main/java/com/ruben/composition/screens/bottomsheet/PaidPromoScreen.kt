@@ -1,6 +1,5 @@
 package com.ruben.composition.screens.bottomsheet
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -29,7 +27,6 @@ fun PaidPromoScreen(
     navigateBack: () -> Unit,
     bottomViewModel: BottomViewModel
 ) {
-    Log.d("Ruben", "Ruben")
     Scaffold(
         topBar = { MojAppBar(
             title = stringResource(id = R.string.paid_promo_title),
@@ -45,7 +42,7 @@ fun PaidPromoScreen(
                     color = SettingValueColor
                 )
 
-/*                SettingItem(
+                SettingItem(
                     bottomViewModel = bottomViewModel,
                     index = 3,
                     liveStreamSettingsEntity = LiveStreamSettingsEntity(
@@ -53,7 +50,7 @@ fun PaidPromoScreen(
                         SettingValue.ON,
                         SettingType.SWITCH
                     )
-                )*/
+                )
             }
         }
     )
