@@ -2,6 +2,11 @@
     <string name="app_name">Composition</string>
     <string name="all_following">Following</string>
     <string name="all_live">LIVE</string>
+    <string name="all_mic">Mic</string>
+    <string name="all_camera">Camera</string>
+    <string name="all_flash">Flash</string>
+    <string name="all_lenses">Lenses</string>
+    <string name="all_settings">Settings</string>
     <string name="live_now_carousel">Live Now Carousel</string>
     <string name="live_streams_number">3 live streams</string>
     <string name="bottom_sheet">Bottom Sheet Behaviour</string>
@@ -17,4 +22,6 @@
     <string name="comments_filter">Comments Filters</string>
     <string name="comments_filter_desc1">We will automatically hide spam or offensive chats in your livestream.</string>
     <string name="comments_filter_desc2">You can also create you own list of keyword to hide them from you live chat.</string>
+    <string name="accessibility_panel">Accessibility Right Panel</string>
+    <string name="flip_camera">Flip</string>
 </resources>

@@ -22,7 +22,7 @@ import com.ruben.composition.components.AppBar
 fun Home(
     openLiveNowCarousel: () -> Unit,
     openBottomSheet: () -> Unit,
-    openCommentsFilter: () -> Unit
+    openAccessibilityPanel: () -> Unit
 ) {
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.app_name)) },
@@ -48,9 +48,9 @@ fun Home(
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.CenterHorizontally),
-                    onClick = openCommentsFilter
+                    onClick = openAccessibilityPanel
                 ) {
-                    Text(text = stringResource(id = R.string.comments_filter))
+                    Text(text = stringResource(id = R.string.accessibility_panel))
                 }
             }
         }

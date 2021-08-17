@@ -43,7 +43,7 @@ class BottomViewModel: ViewModel() {
              }
         } else if (index == 3) {
             viewModelScope.launch {
-                _uiSideEffect.send((SettingsSideEffect.NavigateToPaidPromo))
+                _uiSideEffect.send(SettingsSideEffect.NavigateToPaidPromo)
             }
         }
     }

@@ -7,11 +7,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ruben.composition.Destination.AccessibilityPanel
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
 import com.ruben.composition.Destination.Home
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.PaidPromo
+import com.ruben.composition.screens.AccessibilityPanelScreen
 import com.ruben.composition.screens.bottomsheet.BottomSheetScreen
 import com.ruben.composition.screens.Home
 import com.ruben.composition.screens.LiveNowCarousel
@@ -31,7 +33,7 @@ fun CompositionApp() {
 
     NavHost(navController = navController, startDestination = Home) {
         composable(Home) {
-            Home(actions.openLiveNowCarousel, actions.openBottomSheetScreen, actions.openCommentsFilter)
+            Home(actions.openLiveNowCarousel, actions.openBottomSheetScreen, actions.openAccessibilityPanel)
         }
 
         composable(LiveNowCarousel) {
@@ -48,6 +50,10 @@ fun CompositionApp() {
 
         composable(PaidPromo) {
             PaidPromoScreen(actions.navigateUp, sharedViewModel)
+        }
+
+        composable(AccessibilityPanel) {
+            AccessibilityPanelScreen()
         }
     }
 }
