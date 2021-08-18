@@ -24,4 +24,5 @@
     <string name="comments_filter_desc2">You can also create you own list of keyword to hide them from you live chat.</string>
     <string name="accessibility_panel">Accessibility Right Panel</string>
     <string name="flip_camera">Flip</string>
+    <string name="keyboard_adjust">Keyboard Adjust</string>
 </resources>

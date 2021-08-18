@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ruben.composition.R
 import com.ruben.composition.ui.theme.Red
 
@@ -36,6 +37,12 @@ import com.ruben.composition.ui.theme.Red
  **/
 @Composable
 fun AccessibilityPanelScreen() {
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setSystemBarsColor(Color.Transparent)
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout {
             val (background, close, live, panel) = createRefs()
@@ -163,7 +170,7 @@ fun Panel(modifier: Modifier = Modifier) {
             val (cameraImage, cameraText) = createRefs()
 
             Image(
-                painter = painterResource(id = R.drawable.ic_video),
+                painter = painterResource(id = R.drawable.ic_camera),
                 contentDescription = "Mute Camera",
                 modifier = Modifier
                     .size(28.dp)

@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.google.accompanist.insets.statusBarsPadding
 import com.ruben.composition.R
 import com.ruben.composition.components.BackButtonAppBar
 import com.ruben.composition.data.MockData
@@ -53,6 +54,7 @@ fun LiveNowCarousel(navigateBack: () -> Unit) {
     val isShowCarousel = remember { mutableStateOf(false) }
 
     Scaffold(
+        modifier = Modifier.statusBarsPadding(),
         topBar = { BackButtonAppBar(title = stringResource(id = R.string.all_following), navigateBack = navigateBack) },
         content = {
             ConstraintLayout(modifier = Modifier.fillMaxSize()) {

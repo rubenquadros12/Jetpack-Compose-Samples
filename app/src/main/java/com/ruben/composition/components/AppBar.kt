@@ -1,5 +1,6 @@
 package com.ruben.composition.components
 
+import androidx.compose.foundation.background
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import com.ruben.composition.R
@@ -18,6 +20,7 @@ import com.ruben.composition.ui.theme.SettingColor
 @Composable
 fun AppBar(title: String) {
     TopAppBar(
+        modifier = Modifier.background(Color.Transparent),
         title = { Text(text = title) }
     )
 }
@@ -25,6 +28,7 @@ fun AppBar(title: String) {
 @Composable
 fun BackButtonAppBar(title: String, navigateBack: () -> Unit) {
     TopAppBar(
+        modifier = Modifier.background(Color.Transparent),
         title = { Text(text = title) },
         navigationIcon = { IconButton(onClick = navigateBack) {
             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back Button")

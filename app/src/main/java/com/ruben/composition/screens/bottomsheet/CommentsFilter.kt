@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.ruben.composition.R
@@ -158,5 +159,13 @@ fun FilterItem(index: Int, filterString: String, onRemove: (Int) -> Unit) {
         ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Button", tint = SettingSwitchColor)
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CommentsFilterScreenPreview() {
+    CommentsFilterScreen {
+
     }
 }

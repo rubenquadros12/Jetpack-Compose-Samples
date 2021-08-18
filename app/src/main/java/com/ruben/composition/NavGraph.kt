@@ -4,6 +4,7 @@ import androidx.navigation.NavHostController
 import com.ruben.composition.Destination.AccessibilityPanel
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
+import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.PaidPromo
 
@@ -17,6 +18,7 @@ object Destination {
     const val CommentsFilter = "commentsFilter"
     const val PaidPromo = "paidPromo"
     const val AccessibilityPanel = "accessibilityPanel"
+    const val KeyboardAdjust  = "keyboardAdjust"
 }
 
 class Actions(navHostController: NavHostController) {
@@ -42,5 +44,9 @@ class Actions(navHostController: NavHostController) {
 
     val openAccessibilityPanel: () -> Unit = {
         navHostController.navigate(AccessibilityPanel)
+    }
+
+    val openKeyBoardAdjustScreen: () -> Unit = {
+        navHostController.navigate(KeyboardAdjust)
     }
 }
