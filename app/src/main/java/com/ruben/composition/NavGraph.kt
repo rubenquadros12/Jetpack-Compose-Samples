@@ -2,6 +2,7 @@ package com.ruben.composition
 
 import androidx.navigation.NavHostController
 import com.ruben.composition.Destination.AccessibilityPanel
+import com.ruben.composition.Destination.AddPeople
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
 import com.ruben.composition.Destination.KeyboardAdjust
@@ -19,6 +20,7 @@ object Destination {
     const val PaidPromo = "paidPromo"
     const val AccessibilityPanel = "accessibilityPanel"
     const val KeyboardAdjust  = "keyboardAdjust"
+    const val AddPeople = "addPeople"
 }
 
 class Actions(navHostController: NavHostController) {
@@ -48,5 +50,9 @@ class Actions(navHostController: NavHostController) {
 
     val openKeyBoardAdjustScreen: () -> Unit = {
         navHostController.navigate(KeyboardAdjust)
+    }
+
+    val openAddPeopleScreen: () -> Unit = {
+        navHostController.navigate(AddPeople)
     }
 }

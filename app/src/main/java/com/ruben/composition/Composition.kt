@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ruben.composition.Destination.AccessibilityPanel
+import com.ruben.composition.Destination.AddPeople
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
 import com.ruben.composition.Destination.Home
@@ -18,6 +19,7 @@ import com.ruben.composition.screens.AccessibilityPanelScreen
 import com.ruben.composition.screens.Home
 import com.ruben.composition.screens.KeyboardAdjustScreen
 import com.ruben.composition.screens.LiveNowCarousel
+import com.ruben.composition.screens.addpeople.AddPeopleScreen
 import com.ruben.composition.screens.bottomsheet.BottomSheetScreen
 import com.ruben.composition.screens.bottomsheet.BottomViewModel
 import com.ruben.composition.screens.bottomsheet.CommentsFilterScreen
@@ -35,7 +37,13 @@ fun CompositionApp() {
 
     NavHost(navController = navController, startDestination = Home) {
         composable(Home) {
-            Home(actions.openLiveNowCarousel, actions.openBottomSheetScreen, actions.openAccessibilityPanel, actions.openKeyBoardAdjustScreen)
+            Home(
+                actions.openLiveNowCarousel,
+                actions.openBottomSheetScreen,
+                actions.openAccessibilityPanel,
+                actions.openKeyBoardAdjustScreen,
+                actions.openAddPeopleScreen
+            )
         }
 
         composable(LiveNowCarousel) {
@@ -60,6 +68,10 @@ fun CompositionApp() {
 
         composable(KeyboardAdjust) {
             KeyboardAdjustScreen()
+        }
+
+        composable(AddPeople) {
+            AddPeopleScreen(actions.navigateUp)
         }
     }
 }
