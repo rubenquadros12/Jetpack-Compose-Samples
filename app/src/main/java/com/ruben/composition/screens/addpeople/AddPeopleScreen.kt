@@ -257,7 +257,7 @@ fun RequestItem(joinRequestEntity: JoinRequestEntity) {
         }) {
             Text(
                 modifier = Modifier.padding(end = 8.dp),
-                text = joinRequestEntity.name,
+                text = joinRequestEntity.memberName,
                 color = SettingColor,
                 fontSize = 16.sp,
                 overflow = TextOverflow.Ellipsis
@@ -265,14 +265,14 @@ fun RequestItem(joinRequestEntity: JoinRequestEntity) {
 
             Text(
                 modifier = Modifier.padding(top = 5.dp, end = 8.dp),
-                text = joinRequestEntity.followers.parseCount(),
+                text = joinRequestEntity.numberOfFollwers.parseCount(),
                 color = SettingValueColor,
                 fontSize = 13.sp
             )
 
             Text(
                 modifier = Modifier.padding(top = 5.dp, end = 8.dp),
-                text = joinRequestEntity.subTitle,
+                text = joinRequestEntity.memberHandle,
                 color = SettingValueColor,
                 fontSize = 13.sp,
                 overflow = TextOverflow.Ellipsis
