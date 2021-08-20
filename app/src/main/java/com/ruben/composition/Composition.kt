@@ -16,6 +16,7 @@ import com.ruben.composition.Destination.Home
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.PaidPromo
+import com.ruben.composition.Destination.Share
 import com.ruben.composition.screens.AccessibilityPanelScreen
 import com.ruben.composition.screens.Home
 import com.ruben.composition.screens.KeyboardAdjustScreen
@@ -26,6 +27,7 @@ import com.ruben.composition.screens.bottomsheet.BottomViewModel
 import com.ruben.composition.screens.bottomsheet.CommentsFilterScreen
 import com.ruben.composition.screens.bottomsheet.PaidPromoScreen
 import com.ruben.composition.screens.exit.ExitScreen
+import com.ruben.composition.screens.sharebottomsheet.ShareScreen
 
 /**
  * Created by Ruben Quadros on 10/08/21
@@ -45,7 +47,8 @@ fun CompositionApp() {
                 actions.openAccessibilityPanel,
                 actions.openKeyBoardAdjustScreen,
                 actions.openAddPeopleScreen,
-                actions.openExitScreen
+                actions.openExitScreen,
+                actions.openShareScreen
             )
         }
 
@@ -79,6 +82,10 @@ fun CompositionApp() {
 
         composable(Exit) {
             ExitScreen(actions.navigateUp)
+        }
+
+        composable(Share) {
+            ShareScreen(actions.navigateUp)
         }
     }
 }

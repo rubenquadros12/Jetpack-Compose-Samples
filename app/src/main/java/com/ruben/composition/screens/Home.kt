@@ -29,7 +29,8 @@ fun Home(
     openAccessibilityPanel: () -> Unit,
     openKeyboardAdjustScreen: () -> Unit,
     openAddPeople: () -> Unit,
-    openExitStream: () -> Unit
+    openExitStream: () -> Unit,
+    openShareScreen: () -> Unit
 ) {
     Surface(color = Purple500) {
         Scaffold(
@@ -85,6 +86,14 @@ fun Home(
                     ) {
                         Text(text = stringResource(id = R.string.exit))
                     }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = openShareScreen
+                    ) {
+                        Text(text = stringResource(id = R.string.share))
+                    }
                 }
             }
         )
@@ -94,5 +103,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home({}, {}, {}, {}, {}, {})
+    Home({}, {}, {}, {}, {}, {}, {})
 }

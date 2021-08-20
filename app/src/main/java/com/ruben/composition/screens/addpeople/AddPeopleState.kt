@@ -1,5 +1,6 @@
 package com.ruben.composition.screens.addpeople
 
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.ruben.composition.model.JoinRequestEntity
 import com.ruben.composition.model.Status
 
@@ -8,5 +9,5 @@ import com.ruben.composition.model.Status
  **/
 sealed class AddPeopleState {
     object InitialState: AddPeopleState()
-    data class JoinRequest(val status: Status, val requests: List<JoinRequestEntity>): AddPeopleState()
+    data class JoinRequest(val status: Status, val requests: SnapshotStateList<JoinRequestEntity>): AddPeopleState()
 }

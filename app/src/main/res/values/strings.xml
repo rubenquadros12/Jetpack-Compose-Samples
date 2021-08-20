@@ -11,6 +11,7 @@
     <string name="all_accept">Accept</string>
     <string name="all_undo">Undo</string>
     <string name="all_accepted">Accepted</string>
+    <string name="all_close">Close</string>
     <string name="live_now_carousel">Live Now Carousel</string>
     <string name="live_streams_number">3 live streams</string>
     <string name="bottom_sheet">Bottom Sheet Behaviour</string>
@@ -41,6 +42,12 @@
     <string name="follow_me">Follow me.</string>
     <string name="follow_and_leave">Follow and leave</string>
     <string name="leave">Leave</string>
+    <string name="share">Share</string>
+    <string name="share_creator">Share Creator</string>
+    <string name="share_user">Share User</string>
+    <string name="video_quality">Video quality</string>
+    <string name="vide_quality_value">Automatic</string>
+    <string name="report_stream">Report this live</string>
 
     <!-- Share constants  -->
     <string name="ic_copylink">Copylink</string>

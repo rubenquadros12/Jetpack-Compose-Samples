@@ -9,6 +9,7 @@ import com.ruben.composition.Destination.Exit
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.PaidPromo
+import com.ruben.composition.Destination.Share
 
 /**
  * Created by Ruben Quadros on 10/08/21
@@ -23,6 +24,7 @@ object Destination {
     const val KeyboardAdjust  = "keyboardAdjust"
     const val AddPeople = "addPeople"
     const val Exit = "exit"
+    const val Share = "share"
 }
 
 class Actions(navHostController: NavHostController) {
@@ -60,5 +62,9 @@ class Actions(navHostController: NavHostController) {
 
     val openExitScreen: () -> Unit = {
         navHostController.navigate(Exit)
+    }
+
+    val openShareScreen: () -> Unit = {
+        navHostController.navigate(Share)
     }
 }

@@ -29,6 +29,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -155,24 +156,15 @@ fun AddPeopleBottomSheet(addPeopleViewModel: AddPeopleViewModel = hiltViewModel(
             val joinRequest = (uiState.value as AddPeopleState.JoinRequest)
             if (joinRequest.status == Status.SUCCESS) {
                 val requests = joinRequest.requests
-                val requestList = remember {
-                    mutableStateListOf<JoinRequestEntity>()
-                }
-
-                remember {
-                    requests.forEach {
-                        requestList.add(it)
-                    }
-                }
 
                 fun onDeclineRequest(index: Int) {
-                    requestList.removeAt(index = index)
+                    requests.removeAt(index = index)
                 }
 
-                if (requestList.size > 0) {
+                if (requests.size > 0) {
                     AddPeopleRequestsContent(
                         modifier = Modifier.height(512.dp),
-                        requests = requestList,
+                        requests = requests,
                         onDeclineRequest = { onDeclineRequest(it) })
                 } else {
                     AddPeopleEmptyContent(modifier = Modifier.height(512.dp))
@@ -249,7 +241,7 @@ fun AddPeopleRequestsContent(
         }
 
         LazyColumn {
-            itemsIndexed(requests) { index, item ->
+            itemsIndexed(items = requests, key = { _, item -> item.memberId }) { index, item ->
                 RequestItem(
                     joinRequestEntity = item,
                     index = index,
