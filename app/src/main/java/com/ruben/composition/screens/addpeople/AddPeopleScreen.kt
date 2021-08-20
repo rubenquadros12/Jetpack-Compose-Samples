@@ -1,6 +1,11 @@
 package com.ruben.composition.screens.addpeople
 
+import android.annotation.SuppressLint
+import android.os.CountDownTimer
+import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
@@ -24,6 +29,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -72,9 +78,7 @@ fun AddPeopleScreen(
 
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val isStreamEmpty = remember {
-        mutableStateOf(false)
-    }
+
     Surface(color = Color.Black) {
         BottomSheetScaffold(
             modifier = Modifier
@@ -100,7 +104,6 @@ fun AddPeopleScreen(
                         onClick = {
                             if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
                                 coroutineScope.launch {
-                                    isStreamEmpty.value = true
                                     addPeopleViewModel.getEmptyList()
                                     bottomSheetScaffoldState.bottomSheetState.expand()
                                 }
@@ -120,7 +123,6 @@ fun AddPeopleScreen(
                         onClick = {
                             if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
                                 coroutineScope.launch {
-                                    isStreamEmpty.value = false
                                     addPeopleViewModel.getJoinRequests()
                                     bottomSheetScaffoldState.bottomSheetState.expand()
                                 }
@@ -138,21 +140,43 @@ fun AddPeopleScreen(
     }
 }
 
+
+@SuppressLint("RememberReturnType")
 @Composable
 fun AddPeopleBottomSheet(addPeopleViewModel: AddPeopleViewModel = hiltViewModel()) {
 
     val uiState = addPeopleViewModel.uiState.collectAsState()
+
     when (uiState.value) {
         is AddPeopleState.InitialState -> {
             LoadingView(modifier = Modifier.height(512.dp))
         }
         is AddPeopleState.JoinRequest -> {
             val joinRequest = (uiState.value as AddPeopleState.JoinRequest)
-            val requests = joinRequest.requests
-            if (joinRequest.status == Status.SUCCESS && requests.isEmpty()) {
-                AddPeopleEmptyContent(modifier = Modifier.height(512.dp))
-            } else if (joinRequest.status == Status.SUCCESS && requests.isNotEmpty()) {
-                AddPeopleRequestsContent(modifier = Modifier.height(512.dp), requests = requests)
+            if (joinRequest.status == Status.SUCCESS) {
+                val requests = joinRequest.requests
+                val requestList = remember {
+                    mutableStateListOf<JoinRequestEntity>()
+                }
+
+                remember {
+                    requests.forEach {
+                        requestList.add(it)
+                    }
+                }
+
+                fun onDeclineRequest(index: Int) {
+                    requestList.removeAt(index = index)
+                }
+
+                if (requestList.size > 0) {
+                    AddPeopleRequestsContent(
+                        modifier = Modifier.height(512.dp),
+                        requests = requestList,
+                        onDeclineRequest = { onDeclineRequest(it) })
+                } else {
+                    AddPeopleEmptyContent(modifier = Modifier.height(512.dp))
+                }
             } else {
                 //show error and exit?
             }
@@ -189,7 +213,12 @@ fun AddPeopleEmptyContent(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AddPeopleRequestsContent(modifier: Modifier = Modifier, requests: List<JoinRequestEntity>) {
+fun AddPeopleRequestsContent(
+    modifier: Modifier = Modifier,
+    requests: List<JoinRequestEntity>,
+    onDeclineRequest: (Int) -> Unit
+) {
+
     Column(modifier = modifier) {
         AddPeopleTitleText(modifier = Modifier.align(Alignment.CenterHorizontally))
 
@@ -220,18 +249,30 @@ fun AddPeopleRequestsContent(modifier: Modifier = Modifier, requests: List<JoinR
         }
 
         LazyColumn {
-            items(requests) { item ->
-                RequestItem(joinRequestEntity = item)
+            itemsIndexed(requests) { index, item ->
+                RequestItem(
+                    joinRequestEntity = item,
+                    index = index,
+                    onDeclineRequest = { onDeclineRequest(it) })
             }
         }
     }
 }
 
 @Composable
-fun RequestItem(joinRequestEntity: JoinRequestEntity) {
-    ConstraintLayout(modifier = Modifier
-        .padding(vertical = 4.dp)
-        .fillMaxWidth()) {
+fun RequestItem(index: Int, joinRequestEntity: JoinRequestEntity, onDeclineRequest: (Int) -> Unit) {
+
+    val reqStatus = remember {
+        mutableStateOf(JoinRequestStatus.PENDING)
+    }
+
+    lateinit var countDownTimer: CountDownTimer
+
+    ConstraintLayout(
+        modifier = Modifier
+            .padding(vertical = 4.dp)
+            .fillMaxWidth()
+    ) {
         val (profileImage, info, actions) = createRefs()
         Image(
             contentScale = ContentScale.Crop,
@@ -286,20 +327,73 @@ fun RequestItem(joinRequestEntity: JoinRequestEntity) {
                 bottom.linkTo(parent.bottom)
                 end.linkTo(parent.end)
             }) {
-            Button(
-                modifier = Modifier.align(Alignment.CenterVertically),
-                shape = RoundedCornerShape(6.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = SettingColor,
-                    contentColor = Color.Black
-                ),
-                onClick = {
-                //tell to accept
-            }) {
-                Text(
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                    text = stringResource(id = R.string.all_accept),
-                )
+            when (reqStatus.value) {
+                JoinRequestStatus.PENDING -> {
+                    Button(
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        shape = RoundedCornerShape(6.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = SettingColor,
+                            contentColor = Color.Black
+                        ),
+                        onClick = {
+                            reqStatus.value = JoinRequestStatus.INTERIM_ACCEPT
+                        }) {
+                        Text(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            text = stringResource(id = R.string.all_accept),
+                        )
+                    }
+                }
+                JoinRequestStatus.INTERIM_ACCEPT -> {
+                    Button(
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        shape = RoundedCornerShape(6.dp),
+                        border = BorderStroke(1.dp, SettingColor),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = CommentETColor,
+                            contentColor = SettingColor
+                        ),
+                        onClick = {
+                            reqStatus.value = JoinRequestStatus.PENDING
+                            countDownTimer.cancel()
+                        }) {
+                        Text(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            text = stringResource(id = R.string.all_undo),
+                        )
+                    }
+                    countDownTimer = object : CountDownTimer(3000, 1000) {
+                        override fun onTick(p0: Long) {
+                            Log.d("Ruben", "Time $p0")
+                        }
+
+                        override fun onFinish() {
+                            //send api request
+                            reqStatus.value = JoinRequestStatus.ACCEPTED
+                        }
+
+                    }.start()
+                }
+                JoinRequestStatus.ACCEPTED -> {
+                    Button(
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .clickable(enabled = false) { },
+                        shape = RoundedCornerShape(6.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = CommentETColor,
+                            contentColor = SettingColor
+                        ),
+                        onClick = {
+                            //do nothing
+                        }) {
+                        Text(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            text = stringResource(id = R.string.all_accepted),
+                        )
+                    }
+                }
             }
 
             Image(
@@ -307,7 +401,8 @@ fun RequestItem(joinRequestEntity: JoinRequestEntity) {
                     .padding(horizontal = 18.dp)
                     .align(Alignment.CenterVertically)
                     .clickable {
-                        //tell to deny
+                        //api call to deny request
+                        onDeclineRequest(index)
                     },
                 painter = painterResource(id = R.drawable.ic_decline_request),
                 contentDescription = "Decline Request"
@@ -369,6 +464,17 @@ fun SearchView(modifier: Modifier = Modifier) {
                 contentDescription = "Search"
             )
         },
+        trailingIcon = {
+            if (searchState.value.text.isNotEmpty()) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_decline_request),
+                    contentDescription = "Search",
+                    modifier = Modifier.clickable {
+                        searchState.value = TextFieldValue("")
+                    }
+                )
+            }
+        },
         singleLine = true,
         textStyle = TextStyle(color = SettingValueColor)
     )
@@ -383,5 +489,22 @@ fun AddPeopleBottomSheetEmptyPreview() {
 @Preview(showBackground = true)
 @Composable
 fun AddPeopleBottomSheetRequestsPreview() {
-    AddPeopleRequestsContent(requests = MockData.getJoinRequests())
+    AddPeopleRequestsContent(requests = MockData.getJoinRequests(), onDeclineRequest = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AcceptedButtonPreview() {
+    Box(
+        modifier = Modifier
+            .background(CommentETColor)
+            .clip(RoundedCornerShape(6.dp))
+    ) {
+        Text(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.5.dp),
+            text = stringResource(id = R.string.all_accepted),
+            color = SettingColor,
+            fontSize = 13.sp
+        )
+    }
 }

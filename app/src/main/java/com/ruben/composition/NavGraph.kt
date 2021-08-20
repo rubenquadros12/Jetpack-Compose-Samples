@@ -5,6 +5,7 @@ import com.ruben.composition.Destination.AccessibilityPanel
 import com.ruben.composition.Destination.AddPeople
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
+import com.ruben.composition.Destination.Exit
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.PaidPromo
@@ -21,6 +22,7 @@ object Destination {
     const val AccessibilityPanel = "accessibilityPanel"
     const val KeyboardAdjust  = "keyboardAdjust"
     const val AddPeople = "addPeople"
+    const val Exit = "exit"
 }
 
 class Actions(navHostController: NavHostController) {
@@ -54,5 +56,9 @@ class Actions(navHostController: NavHostController) {
 
     val openAddPeopleScreen: () -> Unit = {
         navHostController.navigate(AddPeople)
+    }
+
+    val openExitScreen: () -> Unit = {
+        navHostController.navigate(Exit)
     }
 }

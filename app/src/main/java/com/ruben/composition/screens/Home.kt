@@ -28,7 +28,8 @@ fun Home(
     openBottomSheet: () -> Unit,
     openAccessibilityPanel: () -> Unit,
     openKeyboardAdjustScreen: () -> Unit,
-    openAddPeople: () -> Unit
+    openAddPeople: () -> Unit,
+    openExitStream: () -> Unit
 ) {
     Surface(color = Purple500) {
         Scaffold(
@@ -76,6 +77,14 @@ fun Home(
                     ) {
                         Text(text = stringResource(id = R.string.add_people))
                     }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = openExitStream
+                    ) {
+                        Text(text = stringResource(id = R.string.exit))
+                    }
                 }
             }
         )
@@ -85,5 +94,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home({}, {}, {}, {}, {})
+    Home({}, {}, {}, {}, {}, {})
 }
