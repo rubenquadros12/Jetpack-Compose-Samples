@@ -1,6 +1,9 @@
 package com.ruben.composition
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.widget.Toast
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -35,5 +38,28 @@ fun Long.parseCount(): String {
             df.format(this.div(1000000000f).toBigDecimal()) + "B"
         else
             (this.div(1000000000)).toString() + "B"
+    }
+}
+
+fun Context.isPackageInstalled(packagename: String): Boolean {
+    try {
+        packageManager.getPackageInfo(packagename, 0)
+        return true
+    } catch (e: PackageManager.NameNotFoundException) {
+        return false
+    }
+}
+
+fun Context.copyToClipBoard(text: String) {
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText(packageName, text)
+    clipboard.setPrimaryClip(clip)
+
+    getString(R.string.copied_to_clipboard).toast(this)
+}
+
+fun String.toast(context: Context?, time: Int = Toast.LENGTH_SHORT) {
+    context?.let {
+        Toast.makeText(context, this, time).show()
     }
 }

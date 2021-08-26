@@ -1,5 +1,6 @@
 package com.ruben.composition.screens.sharebottomsheet
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,13 +38,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.app.ShareCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.ruben.composition.R
 import com.ruben.composition.components.BackButtonAppBar
+import com.ruben.composition.copyToClipBoard
+import com.ruben.composition.isPackageInstalled
 import com.ruben.composition.share.IconInfo
+import com.ruben.composition.share.PackageConstants.ICON_NAME_COPY
+import com.ruben.composition.share.PackageConstants.ICON_NAME_FB
+import com.ruben.composition.share.PackageConstants.ICON_NAME_INSTA
+import com.ruben.composition.share.PackageConstants.ICON_NAME_MORE
+import com.ruben.composition.share.PackageConstants.ICON_NAME_TWITTER
+import com.ruben.composition.share.PackageConstants.ICON_NAME_WHATSAPP
+import com.ruben.composition.share.PackageInfo
 import com.ruben.composition.share.PackageInfoUtil
+import com.ruben.composition.showToast
 import com.ruben.composition.ui.theme.CommentETColor
 import com.ruben.composition.ui.theme.Pink
 import com.ruben.composition.ui.theme.SettingColor
@@ -73,7 +85,7 @@ fun ShareScreen(navigateBack: () -> Unit) {
             modifier = Modifier
                 .statusBarsPadding()
                 .navigationBarsPadding(),
-            sheetContent = { if (isCreator.value) ShareBottomSheetCreator(onClose = { onClose() }) else ShareBottomSheetUser() },
+            sheetContent = { if (isCreator.value) ShareBottomSheetCreator(onClose = { onClose() }) else ShareBottomSheetUser(onClose = { onClose() }) },
             scaffoldState = bottomSheetScaffoldState,
             topBar = {
                 BackButtonAppBar(
@@ -132,7 +144,7 @@ fun ShareScreen(navigateBack: () -> Unit) {
 @Composable
 fun ShareBottomSheetCreator(onClose: () -> Unit) {
     Column {
-        ShareList()
+        ShareList(onClose)
 
         Text(
             text = stringResource(id = R.string.all_close),
@@ -149,7 +161,7 @@ fun ShareBottomSheetCreator(onClose: () -> Unit) {
 }
 
 @Composable
-fun ShareList() {
+fun ShareList(closeDialog: () -> Unit) {
     val context = LocalContext.current
     Column {
         LazyRow(
@@ -157,8 +169,8 @@ fun ShareList() {
                 .padding(top = 16.dp, start = 8.dp)
                 .fillMaxWidth()
         ) {
-            items(PackageInfoUtil.getIconList(true, context)) { item ->
-                ShareItem(item)
+            items(PackageInfoUtil.getIconList(false, context)) { item ->
+                ShareItem(item, closeDialog)
             }
         }
 
@@ -173,9 +185,9 @@ fun ShareList() {
 }
 
 @Composable
-fun ShareBottomSheetUser() {
+fun ShareBottomSheetUser(onClose: () -> Unit) {
     Column {
-        ShareList()
+        ShareList(onClose)
         Box(modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
@@ -248,7 +260,9 @@ fun ShareBottomSheetUser() {
 }
 
 @Composable
-fun ShareItem(iconInfo: IconInfo) {
+fun ShareItem(iconInfo: IconInfo, closeDialog: () -> Unit) {
+
+    val context = LocalContext.current
 
     iconInfo.drawableResource?.let {
         Image(
@@ -258,6 +272,9 @@ fun ShareItem(iconInfo: IconInfo) {
                 .padding(horizontal = 8.dp)
                 .size(40.dp)
                 .clip(CircleShape)
+                .clickable {
+                    shareLiveStream(iconInfo = iconInfo, "https://mojapp.in/@ruben/live/livestreamid", context, closeDialog)
+                }
         )
     }
 
@@ -269,7 +286,52 @@ fun ShareItem(iconInfo: IconInfo) {
                 .padding(horizontal = 8.dp)
                 .size(40.dp)
                 .clip(CircleShape)
+                .clickable {
+                    shareLiveStream(iconInfo = iconInfo, "https://mojapp.in/@ruben/live/livestreamid", context, closeDialog)
+                }
         )
     }
 
+}
+
+fun shareLiveStream(iconInfo: IconInfo, livestreamLink: String, context: Context, closeDialog: () -> Unit) {
+
+    fun share(livestreamLink: String, packageInfo: PackageInfo? = null) {
+        val text = livestreamLink
+
+        val title = context.getString(R.string.choose_to_share)
+        val mimeType = "text/plain"
+
+        val shareIntentBuilder = ShareCompat.IntentBuilder(context)
+            .setChooserTitle(title)
+            .setType(mimeType)
+            .setText(text)
+
+        val shareIntent = if (packageInfo == null || packageInfo == PackageInfo.OTHERS) shareIntentBuilder.createChooserIntent() else
+            shareIntentBuilder.intent
+
+        if (packageInfo != null && context.isPackageInstalled(packageInfo.packageName)) {
+            shareIntent.setPackage(packageInfo.packageName)
+        }
+
+        if (shareIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(shareIntent)
+        } else {
+            //application is not found
+            //handle error
+            context.showToast(context.getString(R.string.application_not_found))
+        }
+    }
+
+    when (iconInfo.iconName) {
+        ICON_NAME_WHATSAPP -> share(livestreamLink, PackageInfo.WHATSAPP)
+        ICON_NAME_FB -> share(livestreamLink, PackageInfo.FACEBOOK)
+        ICON_NAME_TWITTER -> share(livestreamLink, PackageInfo.TWITTER)
+        ICON_NAME_INSTA -> share(livestreamLink, PackageInfo.INSTAGRAM)
+        ICON_NAME_MORE -> share(livestreamLink)
+        ICON_NAME_COPY -> {
+            context.copyToClipBoard(livestreamLink)
+            closeDialog.invoke()
+        }
+    }
 }

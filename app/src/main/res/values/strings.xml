@@ -45,6 +45,9 @@
     <string name="share">Share</string>
     <string name="share_creator">Share Creator</string>
     <string name="share_user">Share User</string>
+    <string name="choose_to_share">Select app to Share</string>
+    <string name="copied_to_clipboard">Copied to Clipboard</string>
+    <string name="application_not_found">No application found to handle this type of action</string>
     <string name="video_quality">Video quality</string>
     <string name="vide_quality_value">Automatic</string>
     <string name="report_stream">Report this live</string>
