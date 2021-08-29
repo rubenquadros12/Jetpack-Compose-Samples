@@ -27,7 +27,8 @@ fun Home(
     openLiveNowCarousel: () -> Unit,
     openBottomSheet: () -> Unit,
     openAccessibilityPanel: () -> Unit,
-    openKeyboardAdjustScreen: () -> Unit
+    openKeyboardAdjustScreen: () -> Unit,
+    openLiveNowUsersScreen: () -> Unit
 ) {
     Surface(color = Purple500) {
         Scaffold(
@@ -67,6 +68,14 @@ fun Home(
                     ) {
                         Text(text = stringResource(id = R.string.keyboard_adjust))
                     }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = openLiveNowUsersScreen
+                    ) {
+                        Text(text = stringResource(id = R.string.live_now_users))
+                    }
                 }
             }
         )
@@ -76,5 +85,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home({}, {}, {}, {})
+    Home({}, {}, {}, {}, {})
 }

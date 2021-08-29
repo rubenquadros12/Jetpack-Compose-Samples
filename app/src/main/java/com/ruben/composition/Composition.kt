@@ -13,15 +13,13 @@ import com.ruben.composition.Destination.CommentsFilter
 import com.ruben.composition.Destination.Home
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
+import com.ruben.composition.Destination.LiveNowUsers
 import com.ruben.composition.Destination.PaidPromo
 import com.ruben.composition.screens.AccessibilityPanelScreen
 import com.ruben.composition.screens.Home
 import com.ruben.composition.screens.KeyboardAdjustScreen
 import com.ruben.composition.screens.LiveNowCarousel
-import com.ruben.composition.screens.bottomsheet.BottomSheetScreen
-import com.ruben.composition.screens.bottomsheet.BottomViewModel
-import com.ruben.composition.screens.bottomsheet.CommentsFilterScreen
-import com.ruben.composition.screens.bottomsheet.PaidPromoScreen
+import com.ruben.composition.screens.bottomsheet.*
 
 /**
  * Created by Ruben Quadros on 10/08/21
@@ -35,7 +33,7 @@ fun CompositionApp() {
 
     NavHost(navController = navController, startDestination = Home) {
         composable(Home) {
-            Home(actions.openLiveNowCarousel, actions.openBottomSheetScreen, actions.openAccessibilityPanel, actions.openKeyBoardAdjustScreen)
+            Home(actions.openLiveNowCarousel, actions.openBottomSheetScreen, actions.openAccessibilityPanel, actions.openKeyBoardAdjustScreen, actions.openLiveNowUser)
         }
 
         composable(LiveNowCarousel) {
@@ -60,6 +58,10 @@ fun CompositionApp() {
 
         composable(KeyboardAdjust) {
             KeyboardAdjustScreen()
+        }
+
+        composable(LiveNowUsers){
+            LiveNowBottomSheet()
         }
     }
 }

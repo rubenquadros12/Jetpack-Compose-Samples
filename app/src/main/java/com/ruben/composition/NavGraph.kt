@@ -6,6 +6,7 @@ import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
+import com.ruben.composition.Destination.LiveNowUsers
 import com.ruben.composition.Destination.PaidPromo
 
 /**
@@ -19,6 +20,7 @@ object Destination {
     const val PaidPromo = "paidPromo"
     const val AccessibilityPanel = "accessibilityPanel"
     const val KeyboardAdjust  = "keyboardAdjust"
+    const val LiveNowUsers  = "liveNowUsers"
 }
 
 class Actions(navHostController: NavHostController) {
@@ -48,5 +50,9 @@ class Actions(navHostController: NavHostController) {
 
     val openKeyBoardAdjustScreen: () -> Unit = {
         navHostController.navigate(KeyboardAdjust)
+    }
+
+    val openLiveNowUser: () -> Unit = {
+        navHostController.navigate(LiveNowUsers)
     }
 }
