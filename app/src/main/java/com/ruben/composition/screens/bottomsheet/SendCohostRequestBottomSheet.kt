@@ -107,6 +107,33 @@ fun SendCohostRequestBottomSheet(cohostInviteRequest: InviteRequest) {
                             titleText = "Request sent to go live with \n${cohostInviteRequest.user.userHandle}"
                             descText = "Both of your followers can watch, and some of your followers will get notified. \nN users are watching this live right now."
                         }
+                        is InviteRequest.InviteExpiredRequest -> {
+                            isFirstButtonEnabled = false
+                            firstActionButtonStyle = ButtonStyle.darkButtonWithWhiteTextStyle()
+                            secondActionButtonStyle = ButtonStyle.darkButtonWithDarkTextStyle()
+                            firstActionButtonText = "InviteExpired"
+                            secondActionButtonText = "Close"
+                            titleText = "Invite Expired!"
+                            descText = "Both of your followers can watch, and some of your followers will get notified. \nN users are watching this live right now."
+                        }
+                        is InviteRequest.JoinLiveAcceptedRequest -> {
+                            isFirstButtonEnabled = true
+                            firstActionButtonStyle = ButtonStyle.whiteButtonWithDarkTextStyle()
+                            secondActionButtonStyle = ButtonStyle.darkButtonWithDarkTextStyle()
+                            firstActionButtonText = "Join Live"
+                            secondActionButtonText = "Cancel"
+                            titleText = "${cohostInviteRequest.user.userHandle} accepted your request \nto join their live video"
+                            descText = "Both of your followers can watch, and some of your followers will get notified. \nN users are watching this live right now."
+                        }
+                        is InviteRequest.JoinLiveRequest -> {
+                            isFirstButtonEnabled = true
+                            firstActionButtonStyle = ButtonStyle.whiteButtonWithDarkTextStyle()
+                            secondActionButtonStyle = ButtonStyle.darkButtonWithDarkTextStyle()
+                            firstActionButtonText = "Join Live"
+                            secondActionButtonText = "Cancel"
+                            titleText = "${cohostInviteRequest.user.userHandle} invited you to\n join their live video"
+                            descText = "Both of your followers can watch, and some of your followers will get notified. \nN users are watching this live right now."
+                        }
                     }
 
                     Text(text = titleText, color = Color(0xFFD7D7D8), fontSize = 20.sp, textAlign = TextAlign.Center, modifier = Modifier.align(CenterHorizontally))
@@ -134,7 +161,7 @@ fun SendCohostRequestBottomSheet(cohostInviteRequest: InviteRequest) {
                 }
             },
             scaffoldState = scaffoldState,
-            sheetPeekHeight = 0.dp,
+            sheetPeekHeight = 400.dp,
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
             sheetBackgroundColor = Color.Black,
 
@@ -193,11 +220,44 @@ fun SendCoHostCancelInviteRequestPreview() {
         SendCohostRequestBottomSheet(InviteRequest.CancelInviteRequest(currentUser = currentUser, user = invitedUser))
     }
 }
+@Preview(name = "JoinLiveAcceptedRequest")
+@ExperimentalMaterialApi
+@Composable
+fun JoinLiveAcceptedRequestPreview() {
+    val currentUser = User("currentUser", isHost = true, userHandle = "@currentUser", fullName = "Current User", numberOfFollowers = 1000)
+    val invitedUser = User("invitedUser", isHost = false, userHandle = "@invitedUser", fullName = "Invited User", numberOfFollowers = 1001)
+    MaterialTheme {
+        SendCohostRequestBottomSheet(InviteRequest.JoinLiveAcceptedRequest(currentUser = currentUser, user = invitedUser))
+    }
+}
+@Preview(name = "JoinLiveRequest")
+@ExperimentalMaterialApi
+@Composable
+fun JoinLiveRequestPreview() {
+    val currentUser = User("currentUser", isHost = true, userHandle = "@currentUser", fullName = "Current User", numberOfFollowers = 1000)
+    val invitedUser = User("invitedUser", isHost = false, userHandle = "@invitedUser", fullName = "Invited User", numberOfFollowers = 1001)
+    MaterialTheme {
+        SendCohostRequestBottomSheet(InviteRequest.JoinLiveRequest(currentUser = currentUser, user = invitedUser))
+    }
+}
+@Preview(name = "InviteExpiredRequest")
+@ExperimentalMaterialApi
+@Composable
+fun InviteExpiredRequestPreview() {
+    val currentUser = User("currentUser", isHost = true, userHandle = "@currentUser", fullName = "Current User", numberOfFollowers = 1000)
+    val invitedUser = User("invitedUser", isHost = false, userHandle = "@invitedUser", fullName = "Invited User", numberOfFollowers = 1001)
+    MaterialTheme {
+        SendCohostRequestBottomSheet(InviteRequest.InviteExpiredRequest(currentUser = currentUser, user = invitedUser))
+    }
+}
 
 sealed class InviteRequest {
     data class SendInviteRequest(val currentUser: User, val user: User) : InviteRequest()
     data class SendInviteRequested(val currentUser: User, val user: User) : InviteRequest()
     data class CancelInviteRequest(val currentUser: User, val user: User) : InviteRequest()
+    data class JoinLiveRequest(val currentUser: User, val user: User) : InviteRequest()
+    data class JoinLiveAcceptedRequest(val currentUser: User, val user: User) : InviteRequest()
+    data class InviteExpiredRequest(val currentUser: User, val user: User) : InviteRequest()
 
 }
 
