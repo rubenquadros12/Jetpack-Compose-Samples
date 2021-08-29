@@ -208,6 +208,7 @@ data class ButtonStyle(val buttonBackgroundColor: Color, val textColor: Color) {
     companion object {
         fun darkButtonWithWhiteTextStyle() = ButtonStyle(buttonBackgroundColor = Color(0xFF131319), textColor = Color(0xFFD7D7D8))
         fun darkButtonWithRedTextStyle() = ButtonStyle(buttonBackgroundColor = Color(0xFF131319), textColor = Color(0xFFFC3361))
+        fun darkButtonWithDarkTextStyle() = ButtonStyle(buttonBackgroundColor = Color(0xFF000000), textColor = Color(0xFF8A8A8F))
         fun whiteButtonWithDarkTextStyle() = ButtonStyle(buttonBackgroundColor = Color(0xFFD7D7D8), textColor = Color(0xFF131319))
     }
 }
