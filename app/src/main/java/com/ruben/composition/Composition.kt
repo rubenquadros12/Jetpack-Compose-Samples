@@ -8,17 +8,27 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ruben.composition.Destination.AccessibilityPanel
+import com.ruben.composition.Destination.AddPeople
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
+import com.ruben.composition.Destination.Exit
 import com.ruben.composition.Destination.Home
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.LiveNowUsers
 import com.ruben.composition.Destination.PaidPromo
+import com.ruben.composition.Destination.Share
 import com.ruben.composition.screens.AccessibilityPanelScreen
 import com.ruben.composition.screens.Home
 import com.ruben.composition.screens.KeyboardAdjustScreen
 import com.ruben.composition.screens.LiveNowCarousel
+import com.ruben.composition.screens.addpeople.AddPeopleScreen
+import com.ruben.composition.screens.bottomsheet.BottomSheetScreen
+import com.ruben.composition.screens.bottomsheet.BottomViewModel
+import com.ruben.composition.screens.bottomsheet.CommentsFilterScreen
+import com.ruben.composition.screens.bottomsheet.PaidPromoScreen
+import com.ruben.composition.screens.exit.ExitScreen
+import com.ruben.composition.screens.sharebottomsheet.ShareScreen
 import com.ruben.composition.screens.bottomsheet.*
 
 /**
@@ -33,7 +43,16 @@ fun CompositionApp() {
 
     NavHost(navController = navController, startDestination = Home) {
         composable(Home) {
-            Home(actions.openLiveNowCarousel, actions.openBottomSheetScreen, actions.openAccessibilityPanel, actions.openKeyBoardAdjustScreen, actions.openLiveNowUser)
+            Home(
+                actions.openLiveNowCarousel,
+                actions.openBottomSheetScreen,
+                actions.openAccessibilityPanel,
+                actions.openKeyBoardAdjustScreen,
+                actions.openAddPeopleScreen,
+                actions.openExitScreen,
+                actions.openShareScreen,
+                actions.openLiveNowUser
+            )
         }
 
         composable(LiveNowCarousel) {
@@ -58,6 +77,18 @@ fun CompositionApp() {
 
         composable(KeyboardAdjust) {
             KeyboardAdjustScreen()
+        }
+
+        composable(AddPeople) {
+            AddPeopleScreen(actions.navigateUp)
+        }
+
+        composable(Exit) {
+            ExitScreen(actions.navigateUp)
+        }
+
+        composable(Share) {
+            ShareScreen(actions.navigateUp)
         }
 
         composable(LiveNowUsers){

@@ -28,6 +28,9 @@ fun Home(
     openBottomSheet: () -> Unit,
     openAccessibilityPanel: () -> Unit,
     openKeyboardAdjustScreen: () -> Unit,
+    openAddPeople: () -> Unit,
+    openExitStream: () -> Unit,
+    openShareScreen: () -> Unit,
     openLiveNowUsersScreen: () -> Unit
 ) {
     Surface(color = Purple500) {
@@ -72,6 +75,30 @@ fun Home(
                         modifier = Modifier
                             .padding(16.dp)
                             .align(Alignment.CenterHorizontally),
+                        onClick = openAddPeople
+                    ) {
+                        Text(text = stringResource(id = R.string.add_people))
+                    }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = openExitStream
+                    ) {
+                        Text(text = stringResource(id = R.string.exit))
+                    }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = openShareScreen
+                    ) {
+                        Text(text = stringResource(id = R.string.share))
+                    }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
                         onClick = openLiveNowUsersScreen
                     ) {
                         Text(text = stringResource(id = R.string.live_now_users))
@@ -85,5 +112,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home({}, {}, {}, {}, {})
+    Home({}, {}, {}, {}, {}, {}, {},{})
 }

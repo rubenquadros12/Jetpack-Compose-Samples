@@ -12,12 +12,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Ruben Quadros on 12/08/21
  **/
 @HiltViewModel
-class BottomViewModel: ViewModel() {
+class BottomViewModel @Inject constructor(): ViewModel() {
 
     private var _settingsData: MutableStateFlow<List<LiveStreamSettingsEntity>> =
         MutableStateFlow(MockData.getLiveStreamSettings())
