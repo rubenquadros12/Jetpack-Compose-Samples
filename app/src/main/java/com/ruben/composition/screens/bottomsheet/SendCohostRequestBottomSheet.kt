@@ -134,7 +134,7 @@ fun SendCohostRequestBottomSheet(cohostInviteRequest: InviteRequest) {
                 }
             },
             scaffoldState = scaffoldState,
-            sheetPeekHeight = 400.dp,
+            sheetPeekHeight = 0.dp,
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
             sheetBackgroundColor = Color.Black,
 
