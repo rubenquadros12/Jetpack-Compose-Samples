@@ -9,6 +9,7 @@ import com.ruben.composition.Destination.Exit
 import com.ruben.composition.Destination.KeyboardAdjust
 import com.ruben.composition.Destination.LiveNowCarousel
 import com.ruben.composition.Destination.LiveNowUsers
+import com.ruben.composition.Destination.Notification
 import com.ruben.composition.Destination.PaidPromo
 import com.ruben.composition.Destination.Share
 
@@ -27,6 +28,7 @@ object Destination {
     const val Exit = "exit"
     const val Share = "share"
     const val LiveNowUsers  = "liveNowUsers"
+    const val Notification = "notification"
 }
 
 class Actions(navHostController: NavHostController) {
@@ -72,5 +74,9 @@ class Actions(navHostController: NavHostController) {
 
     val openLiveNowUser: () -> Unit = {
         navHostController.navigate(LiveNowUsers)
+    }
+
+    val openNotificationScreen: () -> Unit = {
+        navHostController.navigate(Notification)
     }
 }

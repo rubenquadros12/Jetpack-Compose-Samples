@@ -51,7 +51,9 @@
     <string name="video_quality">Video quality</string>
     <string name="vide_quality_value">Automatic</string>
     <string name="report_stream">Report this live</string>
-
+    <string name="notifications">In-App Notification</string>
+    <string name="show_notification">Show me the notification!</string>
+    <string name="notification_desc">Accepted your request to join their <font color="#FF6200EE"><b>LIVE</b></font> video</string>
     <!-- Share constants  -->
     <string name="ic_copylink">Copylink</string>
 

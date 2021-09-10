@@ -31,7 +31,8 @@ fun Home(
     openAddPeople: () -> Unit,
     openExitStream: () -> Unit,
     openShareScreen: () -> Unit,
-    openLiveNowUsersScreen: () -> Unit
+    openLiveNowUsersScreen: () -> Unit,
+    openNotificationScreen: () -> Unit
 ) {
     Surface(color = Purple500) {
         Scaffold(
@@ -103,6 +104,14 @@ fun Home(
                     ) {
                         Text(text = stringResource(id = R.string.live_now_users))
                     }
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = openNotificationScreen
+                    ) {
+                        Text(text = stringResource(id = R.string.notifications))
+                    }
                 }
             }
         )
@@ -112,5 +121,5 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home({}, {}, {}, {}, {}, {}, {},{})
+    Home({}, {}, {}, {}, {}, {}, {},{}, {})
 }
