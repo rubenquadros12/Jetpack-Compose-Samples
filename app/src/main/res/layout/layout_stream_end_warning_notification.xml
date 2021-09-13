@@ -48,7 +48,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="47dp"
             android:layout_toEndOf="@+id/iv_profile"
-            android:text="@string/notification_desc"
+            tools:text="@string/notification_desc"
             android:textColor="@color/mv_white"
             android:textSize="13sp" />
 
