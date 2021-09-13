@@ -29,6 +29,7 @@ object Destination {
     const val Share = "share"
     const val LiveNowUsers  = "liveNowUsers"
     const val Notification = "notification"
+    const val DeepLink = "deepLink"
 }
 
 class Actions(navHostController: NavHostController) {

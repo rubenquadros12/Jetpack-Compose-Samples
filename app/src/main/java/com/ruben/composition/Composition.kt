@@ -7,10 +7,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import com.ruben.composition.Destination.AccessibilityPanel
 import com.ruben.composition.Destination.AddPeople
 import com.ruben.composition.Destination.BottomSheet
 import com.ruben.composition.Destination.CommentsFilter
+import com.ruben.composition.Destination.DeepLink
 import com.ruben.composition.Destination.Exit
 import com.ruben.composition.Destination.Home
 import com.ruben.composition.Destination.KeyboardAdjust
@@ -20,6 +22,7 @@ import com.ruben.composition.Destination.Notification
 import com.ruben.composition.Destination.PaidPromo
 import com.ruben.composition.Destination.Share
 import com.ruben.composition.screens.AccessibilityPanelScreen
+import com.ruben.composition.screens.DeepLinkScreen
 import com.ruben.composition.screens.Home
 import com.ruben.composition.screens.KeyboardAdjustScreen
 import com.ruben.composition.screens.LiveNowCarousel
@@ -100,6 +103,12 @@ fun CompositionApp() {
 
         composable(Notification) {
             NotificationScreen(actions.navigateUp)
+        }
+
+        composable(route = "$DeepLink?name={name}", deepLinks = listOf(navDeepLink {
+            uriPattern = "https://ruben.in/{name}"
+        })) {
+            DeepLinkScreen(it.arguments?.getString("name") ?: "")
         }
     }
 }
